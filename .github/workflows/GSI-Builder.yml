@@ -42,11 +42,7 @@ jobs:
       sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --ab
     else
       sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --aonly
-    fi
-
-
-
-      - name: Prepare artifacts directory
+    fi      - name: Prepare artifacts directory
         run: |
           mkdir -p $GITHUB_WORKSPACE/artifacts
           sudo chmod -R 777 $GITHUB_WORKSPACE/artifacts
