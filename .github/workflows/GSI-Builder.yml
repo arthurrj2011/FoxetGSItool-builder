@@ -10,7 +10,7 @@ on:
       rom_link:
         description: 'Link to the ROM file'
         required: true
-        default: 'https://dl.google.com/dl/android/aosp/barbet-sp1a.210812.015-factory-13f4d9f2.zip'
+        default: 'https://dl.google.com/dl/android/aosp/tangorpro-bp1a.250505.005-factory-fbebb053.zip'
       rom_type_option:
         description: 'Type of GSI (AB or A-only)'
         required: true
