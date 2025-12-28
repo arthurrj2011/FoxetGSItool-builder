@@ -29,7 +29,7 @@ jobs:
       - name: Clone OriginGSITool
         run: |
           git clone https://github.com/defnotegor/OriginGSITool.git OriginGSITool
-          cd OriginGSITool
+          ls -R OriginGSITool   # debug: show repo structure
 
       - name: Build GSI
         env:
@@ -37,7 +37,7 @@ jobs:
           ROM_LINK: ${{ github.event.inputs.rom_link }}
           ROM_TYPE_OPTION: ${{ github.event.inputs.rom_type_option }}
         run: |
-          cd OriginGSITool/FoxetGSI-tool
+          cd OriginGSITool
           if [ "$ROM_TYPE_OPTION" = "AB" ]; then
             sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --ab
           else
@@ -52,7 +52,7 @@ jobs:
       - name: Process and Package Files
         id: package
         run: |
-          cd $GITHUB_WORKSPACE/OriginGSITool/FoxetGSI-tool/output || exit 1
+          cd OriginGSITool/output || exit 1
           if [ $(ls -1 *.img 2>/dev/null | wc -l) -eq 0 ]; then
             echo "::error::No .img files found!"
             exit 1
@@ -61,7 +61,9 @@ jobs:
           img_file=$(ls *.img | head -n 1)   # take first .img file
           base_name="${img_file%.img}"
           txt_file="${base_name}.txt"
-          cp "$txt_file" "$GITHUB_WORKSPACE/artifacts/"
+          if [ -f "$txt_file" ]; then
+            cp "$txt_file" "$GITHUB_WORKSPACE/artifacts/"
+          fi
           7z a -mmt=on "$GITHUB_WORKSPACE/artifacts/${base_name}.7z" "$img_file"
           echo "release_name=${base_name}_${timestamp}" >> $GITHUB_OUTPUT
           echo "tag_name=${base_name}-${timestamp}" >> $GITHUB_OUTPUT
