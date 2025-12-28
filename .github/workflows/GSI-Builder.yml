@@ -31,18 +31,20 @@ jobs:
           git clone https://github.com/defnotegor/OriginGSITool.git OriginGSITool
           ls -R OriginGSITool   # debug: show repo structure
 
-      - name: Build GSI
-        env:
-          ROM_TYPE: ${{ github.event.inputs.rom_type }}
-          ROM_LINK: ${{ github.event.inputs.rom_link }}
-          ROM_TYPE_OPTION: ${{ github.event.inputs.rom_type_option }}
-        run: |
-          cd OriginGSITool
-          if [ "$ROM_TYPE_OPTION" = "AB" ]; then
-            sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --ab
-          else
-            sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --aonly
-          fi
+- name: Build GSI
+  env:
+    ROM_TYPE: ${{ github.event.inputs.rom_type }}
+    ROM_LINK: ${{ github.event.inputs.rom_link }}
+    ROM_TYPE_OPTION: ${{ github.event.inputs.rom_type_option }}
+  run: |
+    cd OriginGSITool   # adjust if LinkToGSI.sh is in a subfolder
+    if [ "$ROM_TYPE_OPTION" = "AB" ]; then
+      sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --ab
+    else
+      sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --aonly
+    fi
+
+
 
       - name: Prepare artifacts directory
         run: |
