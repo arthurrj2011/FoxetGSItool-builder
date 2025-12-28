@@ -1,4 +1,4 @@
-name: FoxetGSI-tool
+name: OriginGSITool
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
       rom_link:
         description: 'Link to the ROM file'
         required: true
-        default: 'https://dl.google.com/dl/android/aosp/barbet-sp1a.210812.015-factory-13f4d9f2.zip'
+        default: 'https://dl.google.com/developers/android/CANARY/images/factory/tangorpro_beta-zp11.251121.010-factory-36d3c1df.zip'
       rom_type_option:
         description: 'Type of GSI (AB or A-only)'
         required: true
@@ -27,14 +27,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Clone FoxetGSI-tool
+      - name: Clone OriginGSITool
         run: |
           git clone https://github.com/defnotegor/OriginGSITool.git FoxetGSI-tool
       - name: Install dependencies
         run: |
-          cd FoxetGSI-tool
-          sudo bash setup.sh
-          sudo apt-get install -y p7zip-full
+          cd OriginGSITool
       - name: Build GSI
         env:
           ROM_TYPE: ${{ github.event.inputs.rom_type }}
@@ -43,9 +41,9 @@ jobs:
         run: |
           cd FoxetGSI-tool
           if [ "$ROM_TYPE_OPTION" = "AB" ]; then
-            sudo bash url2GSI.sh "$ROM_LINK" "$ROM_TYPE" --ab
+            sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --ab
           else
-            sudo bash url2GSI.sh "$ROM_LINK" "$ROM_TYPE" --aonly
+            sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --aonly
           fi
       - name: Prepare artifacts directory
         run: |
