@@ -27,9 +27,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Clone FoxetGSI-tool
+      - name: Clone OriginGSITool
         run: |
-          git clone --recurse-submodules https://github.com/FoxetGSI/FoxetGSI-tool.git
+          git clone https://github.com/defnotegor/OriginGSITool.git
       - name: Install dependencies
         run: |
           cd FoxetGSI-tool
