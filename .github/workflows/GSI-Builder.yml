@@ -44,9 +44,9 @@ jobs:
         run: |
           cd OriginGSITool
           if [ "$ROM_TYPE_OPTION" = "AB" ]; then
-            sudo bash url2GSI.sh "$ROM_LINK" "$ROM_TYPE" --ab
+            sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --ab
           else
-            sudo bash url2GSI.sh "$ROM_LINK" "$ROM_TYPE" --aonly
+            sudo bash LinkToGSI.sh "$ROM_LINK" "$ROM_TYPE" --aonly
           fi
 
       - name: Prepare artifacts directory
