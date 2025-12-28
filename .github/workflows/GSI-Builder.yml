@@ -28,7 +28,7 @@ jobs:
 
       - name: Clone OriginGSITool
         run: |
-          git clone --recurse-submodules https://github.com/defnotegor/OriginGSITool.git OriginGSITool
+          git clone --recurse-submodules https://github.com/RadGoodNow/YaEbuEbuGSITool OriginGSITool
           ls -R OriginGSITool   # debug: confirm folder structure
 
       - name: Install dependencies
